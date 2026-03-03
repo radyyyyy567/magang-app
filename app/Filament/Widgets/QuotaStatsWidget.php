@@ -2,7 +2,7 @@
 
 namespace App\Filament\Widgets;
 
-use App\Models\Activity;
+use App\Models\Lowongan;
 use Filament\Widgets\StatsOverviewWidget as BaseWidget;
 use Filament\Widgets\StatsOverviewWidget\Stat;
 
@@ -11,10 +11,10 @@ class QuotaStatsWidget extends BaseWidget
     protected function getStats(): array
     {
         // Calculate total quota from all activities
-        $totalQuota = Activity::sum('quota');
+        $totalQuota = Lowongan::sum('quota');
         
         // Calculate unfilled quota (from open activities)
-        $unfilledQuota = Activity::where('status', 'open')->sum('quota');
+        $unfilledQuota = Lowongan::where('status', 'open')->sum('quota');
         
         // Calculate filled quota (assuming closed activities are filled)
         $filledQuota = $totalQuota - $unfilledQuota;

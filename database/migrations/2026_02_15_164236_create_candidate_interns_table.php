@@ -11,13 +11,14 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('internship_applications', function (Blueprint $table) {
+        Schema::create('candidate_interns', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('mentor_id')->constrained('users');
-            $table->foreignId('intern_id')->constrained('users');
-            $table->string('title', 225);
-            $table->longText('description');
-            $table->datetime('activity_date');
+            $table->foreignId('user_id')->nullable()->constrained('users');
+            $table->string('name');
+            $table->string('nik')->unique();
+            $table->string('transcript_path');
+            $table->string('cv_path');
+            $table->string('photo_path');
             $table->timestamps();
         });
     }
@@ -27,6 +28,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('internship_applications');
+        Schema::dropIfExists('candidate_interns');
     }
 };

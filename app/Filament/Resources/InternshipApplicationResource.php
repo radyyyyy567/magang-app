@@ -30,6 +30,23 @@ class InternshipApplicationResource extends Resource
 
     protected static ?string $modelLabel = 'Laporan Kegiatan';
 
+    public static function getEloquentQuery(): \Illuminate\Database\Eloquent\Builder
+{
+    $query = parent::getEloquentQuery();
+
+    $user = auth()->user();
+
+    if ($user->role === 'intern') {
+        $query->where('intern_id', $user->id);
+    }
+
+    if ($user->role === 'mentor') {
+        $query->where('mentor_id', $user->id);
+    }
+
+    return $query;
+}
+
     public static function form(Schema $schema): Schema
     {
         return $schema

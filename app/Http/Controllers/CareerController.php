@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Activity;
+use App\Models\Lowongan;
 use Illuminate\Http\Request;
 
 class CareerController extends Controller
@@ -12,7 +12,7 @@ class CareerController extends Controller
      */
     public function index()
     {
-        $activities = Activity::with(['division', 'mentor'])
+        $activities = Lowongan::with(['division', 'mentor'])
             ->where('status', 'open')
             ->orderBy('created_at', 'desc')
             ->get();
@@ -25,7 +25,7 @@ class CareerController extends Controller
      */
     public function show($id)
     {
-        $activity = Activity::with(['division', 'mentor'])
+        $activity = Lowongan::with(['division', 'mentor'])
             ->where('status', 'open')
             ->findOrFail($id);
         

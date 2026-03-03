@@ -11,13 +11,13 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('internship_applications', function (Blueprint $table) {
+        Schema::create('daily_attendances', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('mentor_id')->constrained('users');
-            $table->foreignId('intern_id')->constrained('users');
-            $table->string('title', 225);
-            $table->longText('description');
-            $table->datetime('activity_date');
+            $table->foreignId('user_id')->constrained()->cascadeOnDelete();
+            $table->date('date');
+            $table->time('check_in')->nullable();
+            $table->time('check_out')->nullable();
+            $table->string('status')->default('present'); // present, late, etc.
             $table->timestamps();
         });
     }
@@ -27,6 +27,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('internship_applications');
+        Schema::dropIfExists('daily_attendances');
     }
 };

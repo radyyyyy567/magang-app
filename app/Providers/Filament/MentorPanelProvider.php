@@ -28,16 +28,17 @@ class MentorPanelProvider extends PanelProvider
             ->id('mentor')
             ->path('mentor')
             ->login()
+            ->darkMode(false)
             ->brandLogo(fn () => view('filament.brand'))
             ->brandLogoHeight('6rem')
             ->colors([
                 'primary' => Color::Amber,
             ])
             ->resources([
-                \App\Filament\Resources\ActivityResource::class,
                 \App\Filament\Resources\ProfileMentorResource::class,
-                \App\Filament\Resources\InternshipPositionResource::class,
+                
                 \App\Filament\Resources\InternshipApplicationResource::class,
+                \App\Filament\Resources\CandidateInterns\CandidateInternResource::class,
             ])
             ->discoverPages(in: app_path('Filament/Mentor/Pages'), for: 'App\Filament\Mentor\Pages')
             ->pages([

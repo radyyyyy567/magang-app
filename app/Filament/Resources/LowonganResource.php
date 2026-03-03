@@ -2,8 +2,8 @@
 
 namespace App\Filament\Resources;
 
-use App\Filament\Resources\ActivityResource\Pages;
-use App\Models\Activity;
+use App\Filament\Resources\LowonganResource\Pages;
+use App\Models\Lowongan;
 use App\Models\Division;
 use App\Models\User;
 use BackedEnum;
@@ -20,15 +20,15 @@ use Filament\Tables;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
 
-class ActivityResource extends Resource
+class LowonganResource extends Resource
 {
-    protected static ?string $model = Activity::class;
+    protected static ?string $model = Lowongan::class;
 
-    protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedCalendar;
+    protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedBriefcase; // Changed icon to briefcase for clarity
 
-    protected static ?string $navigationLabel = 'Kegiatan';
+    protected static ?string $navigationLabel = 'Lowongan';
 
-    protected static ?string $modelLabel = 'Kegiatan';
+    protected static ?string $modelLabel = 'Lowongan';
 
     public static function form(Schema $schema): Schema
     {
@@ -64,6 +64,33 @@ class ActivityResource extends Resource
                     ->numeric()
                     ->minValue(1),
                 
+                \Filament\Forms\Components\Repeater::make('monthly_data')
+                    ->label('Target Perbulan')
+                    ->schema([
+                        Select::make('month')
+                            ->label('Bulan')
+                            ->options([
+                                'Januari' => 'Januari',
+                                'Februari' => 'Februari',
+                                'Maret' => 'Maret',
+                                'April' => 'April',
+                                'Mei' => 'Mei',
+                                'Juni' => 'Juni',
+                                'Juli' => 'Juli',
+                                'Agustus' => 'Agustus',
+                                'September' => 'September',
+                                'Oktober' => 'Oktober',
+                                'November' => 'November',
+                                'Desember' => 'Desember',
+                            ])
+                            ->required(),
+                        TextInput::make('target')
+                            ->label('Target Qouta')
+                            ->numeric()
+                            ->required(),
+                    ])
+                    ->columnSpanFull(),
+
                 Select::make('status')
                     ->label('Status')
                     ->options([
@@ -141,9 +168,9 @@ class ActivityResource extends Resource
     public static function getPages(): array
     {
         return [
-            'index' => Pages\ListActivities::route('/'),
-            'create' => Pages\CreateActivity::route('/create'),
-            'edit' => Pages\EditActivity::route('/{record}/edit'),
+            'index' => Pages\ListLowongans::route('/'),
+            'create' => Pages\CreateLowongan::route('/create'),
+            'edit' => Pages\EditLowongan::route('/{record}/edit'),
         ];
     }
 }

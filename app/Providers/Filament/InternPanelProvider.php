@@ -30,15 +30,14 @@ class InternPanelProvider extends PanelProvider
             ->login()
             ->brandLogo(fn () => view('filament.brand'))
             ->brandLogoHeight('6rem')
+            ->darkMode(false)
             ->registration()
             ->colors([
                 'primary' => Color::Amber,
             ])
             ->resources([
-                \App\Filament\Resources\ActivityResource::class,
-                \App\Filament\Resources\InternshipPositionResource::class,
                 \App\Filament\Resources\InternshipApplicationResource::class,
-                \App\Filament\Resources\ScheduleAttendanceResource::class,
+                \App\Filament\Resources\DailyAttendanceResource::class,
             ])
             ->discoverPages(in: app_path('Filament/intern/Pages'), for: 'App\Filament\intern\Pages')
             ->pages([

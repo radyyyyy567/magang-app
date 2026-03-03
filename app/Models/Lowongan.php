@@ -4,8 +4,9 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Activity extends Model
+class Lowongan extends Model
 {
+    protected $table = 'lowongans';
     protected $fillable = [
         'division_id',
         'mentor_id',
@@ -13,10 +14,12 @@ class Activity extends Model
         'description',
         'quota',
         'status',
+        'monthly_data',
     ];
 
     protected $casts = [
         'status' => 'string',
+        'monthly_data' => 'array',
     ];
 
     public function division()

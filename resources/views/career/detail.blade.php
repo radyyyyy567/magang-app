@@ -18,12 +18,91 @@
             line-height: 1.6;
         }
 
-        /* Header */
-        .header {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            padding: 2rem 0;
+        /* Navigation */
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 1rem 0;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+            z-index: 1000;
+            transition: all 0.3s ease;
+        }
+
+        .navbar.scrolled {
+            padding: 0.5rem 0;
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            align-items: center;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: #1a202c;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: #667eea;
+        }
+
+        .btn {
+            padding: 0.75rem 1.5rem;
+            border-radius: 0.5rem;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            display: inline-block;
+            border: none;
+            cursor: pointer;
+        }
+
+        .btn-outline {
+            background: transparent;
+            color: #667eea;
+            border: 2px solid #667eea;
+        }
+
+        .btn-outline:hover {
+            background: #667eea;
+            color: white;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            box-shadow: 0 4px 6px rgba(102, 126, 234, 0.3);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 12px rgba(102, 126, 234, 0.4);
         }
 
         .container {
@@ -32,70 +111,10 @@
             padding: 0 2rem;
         }
 
-        .header-content {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .logo {
-            font-size: 1.75rem;
-            font-weight: 700;
-            letter-spacing: -0.5px;
-        }
-
-        .nav-links {
-            display: flex;
-            gap: 2rem;
-        }
-
-        .nav-links a {
-            color: white;
-            text-decoration: none;
-            font-weight: 500;
-            transition: opacity 0.3s;
-        }
-
-        .nav-links a:hover {
-            opacity: 0.8;
-        }
-
-        /* Breadcrumb */
-        .breadcrumb {
-            background: white;
-            padding: 1rem 0;
-            border-bottom: 1px solid #e2e8f0;
-        }
-
-        .breadcrumb-list {
-            display: flex;
-            gap: 0.5rem;
-            align-items: center;
-            list-style: none;
-        }
-
-        .breadcrumb-list li {
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
-
-        .breadcrumb-list a {
-            color: #667eea;
-            text-decoration: none;
-        }
-
-        .breadcrumb-list a:hover {
-            text-decoration: underline;
-        }
-
-        .breadcrumb-separator {
-            color: #cbd5e0;
-        }
-
         /* Main Content */
         .main-content {
             padding: 3rem 0;
+            margin-top: 60px;
         }
 
         .detail-card {
@@ -242,7 +261,7 @@
             opacity: 0.95;
         }
 
-        .btn {
+        .btn-action {
             display: inline-block;
             padding: 1rem 2.5rem;
             background: white;
@@ -255,7 +274,7 @@
             box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
         }
 
-        .btn:hover {
+        .btn-action:hover {
             transform: translateY(-2px);
             box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
         }
@@ -285,16 +304,11 @@
                 font-size: 1.75rem;
             }
 
-            .header-content {
-                flex-direction: column;
-                gap: 1rem;
-            }
-
             .detail-badges {
                 flex-direction: column;
             }
 
-            .btn {
+            .btn-action {
                 display: block;
                 margin: 0.5rem 0;
             }
@@ -302,37 +316,44 @@
             .btn-secondary {
                 margin-left: 0;
             }
+
+            .nav-links {
+                display: none;
+            }
         }
     </style>
+    <script>
+        // Navbar scroll effect
+        window.addEventListener('scroll', function() {
+            const navbar = document.getElementById('navbar');
+            if (window.scrollY > 50) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+        });
+    </script>
 </head>
 <body>
-    <!-- Header -->
-    <header class="header">
-        <div class="container">
-            <div class="header-content">
-                <div class="logo">MagangKUM</div>
-                <nav class="nav-links">
-                    <a href="/">Beranda</a>
-                    <a href="{{ route('career.index') }}">Karir</a>
-                    <a href="/intern/login">Login</a>
-                    <a href="/intern/register">Daftar</a>
-                </nav>
+    <!-- Navigation -->
+    <nav class="navbar" id="navbar">
+        <div class="nav-container">
+            <div class="logo">{{ config('app.name') }}</div>
+            <div class="nav-links">
+                <a href="/">Beranda</a>
+                <a href="#">Fitur</a>
+                <a href="#">Tentang</a>
+                <a href="{{ route('career.index') }}">Lowongan</a>
+                @auth
+                    <a href="{{ url('/admin') }}" class="btn-primary">Dashboard</a>
+                @else
+                    <a href="/intern/login" class="btn-outline">Login</a>
+                @endauth
             </div>
         </div>
-    </header>
+    </nav>
 
-    <!-- Breadcrumb -->
-    <div class="breadcrumb">
-        <div class="container">
-            <ul class="breadcrumb-list">
-                <li><a href="/">Beranda</a></li>
-                <li class="breadcrumb-separator">›</li>
-                <li><a href="{{ route('career.index') }}">Karir</a></li>
-                <li class="breadcrumb-separator">›</li>
-                <li>{{ $activity->title }}</li>
-            </ul>
-        </div>
-    </div>
+
 
     <!-- Main Content -->
     <main class="main-content">
@@ -416,8 +437,8 @@
                     <div class="cta-section">
                         <h2 class="cta-title">Tertarik Bergabung?</h2>
                         <p class="cta-text">Daftarkan diri Anda sekarang dan mulai perjalanan karir Anda bersama kami!</p>
-                        <a href="/intern/register" class="btn">Daftar Sekarang</a>
-                        <a href="{{ route('career.index') }}" class="btn btn-secondary">Lihat Posisi Lain</a>
+                        <a href="{{ route('candidate.register', ['lowongan_id' => $activity->id]) }}" class="btn-action">Daftar Sekarang</a>
+                        <a href="{{ route('career.index') }}" class="btn-secondary">Lihat Posisi Lain</a>
                     </div>
                 </div>
             </div>

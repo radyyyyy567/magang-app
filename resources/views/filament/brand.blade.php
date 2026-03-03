@@ -4,7 +4,7 @@
         'admin/login',
         'mentor/login',
         'intern/login',
-        'intern/registrasi'
+        'intern/register'
     );
 @endphp
 

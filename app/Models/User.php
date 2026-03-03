@@ -81,12 +81,17 @@ class User extends Authenticatable implements FilamentUser
 
     public function mentorActivities()
     {
-        return $this->hasMany(Activity::class, 'mentor_id');
+        return $this->hasMany(Lowongan::class, 'mentor_id');
     }
 
     public function internAttendances()
     {
         return $this->hasMany(InternshipPosition::class, 'intern_id');
+    }
+
+    public function dailyAttendances()
+    {
+        return $this->hasMany(DailyAttendance::class);
     }
 
     public function internApplications()

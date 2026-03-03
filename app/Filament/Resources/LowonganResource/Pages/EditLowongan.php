@@ -1,14 +1,14 @@
 <?php
 
-namespace App\Filament\Resources\ActivityResource\Pages;
+namespace App\Filament\Resources\LowonganResource\Pages;
 
-use App\Filament\Resources\ActivityResource;
+use App\Filament\Resources\LowonganResource;
 use Filament\Actions;
 use Filament\Resources\Pages\EditRecord;
 
-class EditActivity extends EditRecord
+class EditLowongan extends EditRecord
 {
-    protected static string $resource = ActivityResource::class;
+    protected static string $resource = LowonganResource::class;
 
     protected function getHeaderActions(): array
     {
